@@ -158,7 +158,11 @@ public inherited sharing class ReplenishmentController {
         // TODO FOR THE CHALLENGE (Task 2):
         // Replace null with queryText.
         Database.PaginationCursor cursor =
-            Database.getPaginationCursorWithBinds(null, binds, AccessLevel.USER_MODE);
+            Database.getPaginationCursorWithBinds(
+    queryText,
+    binds,
+    AccessLevel.USER_MODE
+);
         Integer totalRecords = cursor.getNumRecords();
         response.totalRecords = totalRecords;
         if (safeStart >= totalRecords) {
@@ -168,7 +172,7 @@ public inherited sharing class ReplenishmentController {
 
         // TODO FOR THE CHALLENGE (Task 2):
         // Replace 0 with totalRecords - safeStart.
-        Integer countToFetch = Math.min(safeSize, 0);
+        Integer countToFetch = Math.min(safeSize, totalRecords - safeStart);
         Database.CursorFetchResult fetched = cursor.fetchPage(safeStart, countToFetch);
         List<StoreProduct> storeProducts = new List<StoreProduct>();
         Set<Id> productIds = new Set<Id>();
@@ -212,8 +216,8 @@ public inherited sharing class ReplenishmentController {
 
         // TODO FOR THE CHALLENGE (Task 2):
         // Replace 0 and false with the correct expressions.
-        response.nextIndex = safeStart + 0;
-        response.hasMore = false;
+       response.nextIndex = safeStart + countToFetch;
+       response.hasMore = response.nextIndex < totalRecords;
         return response;
     }
 
