@@ -27,11 +27,9 @@ const createReplenishmentState = defineState(
     const orderNotes = atom(state.orderNotes);
 
     const productCount = computed(
-      [chosenProducts],
-      // TODO FOR THE CHALLENGE (Task 1):
-      // Replace this callback with one that returns products.length.
-      () => 0
-    );
+  [chosenProducts],
+  (products) => products.length
+);
     const totalUnits = computed([chosenProducts], (products) =>
       products.reduce(
         (total, product) => total + normalizeQuantity(product.quantity),
@@ -84,9 +82,18 @@ const createReplenishmentState = defineState(
       const withoutProduct = chosenProducts.value.filter(
         (item) => item.productId !== product.productId
       );
-      // TODO FOR THE CHALLENGE (Task 1):
-      // Use setAtom to publish withoutProduct plus the selected product.
-      // Normalize quantity using quantity or defaultOrderQuantity.
+     setAtom(
+  chosenProducts,
+  [
+    ...withoutProduct,
+    {
+      ...product,
+      quantity: normalizeQuantity(
+        product.quantity ?? product.defaultOrderQuantity
+      )
+    }
+  ]
+);
     };
     const removeProduct = (productId) =>
       setAtom(
