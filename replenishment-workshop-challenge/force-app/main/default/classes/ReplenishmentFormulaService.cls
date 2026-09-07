@@ -64,7 +64,10 @@ global inherited sharing class ReplenishmentFormulaService {
             // TODO FOR THE CHALLENGE (Task 3):
             // Replace null with a Formula.builder() chain that uses
             // FormulaContext, DECIMAL, and the supplied expression.
-            FormulaEval.FormulaInstance formula = null;
+           FormulaEval.FormulaInstance formula = Formula.builder().withType(FormulaContext.class)
+        .withReturnType(FormulaEval.FormulaReturnType.DECIMAL)
+        .withFormula(expression)
+        .build();
             Object rawValue = formula.evaluate(context);
             Decimal quantity = rawValue == null ? 0 : (Decimal) rawValue;
             return quantity < 0 ? 0 : quantity.setScale(0);
