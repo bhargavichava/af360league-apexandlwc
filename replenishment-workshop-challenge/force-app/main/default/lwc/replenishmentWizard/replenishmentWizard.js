@@ -7,7 +7,7 @@ export default class ReplenishmentWizard extends LightningElement {
   @api botId;
   // TODO FOR THE CHALLENGE (Task 1):
   // Add () to invoke the state-manager factory.
-  replenishmentState = createReplenishmentState;
+  replenishmentState = createReplenishmentState();
   currentStep = 1;
   stepOneValid = false;
   isComplete = false;
