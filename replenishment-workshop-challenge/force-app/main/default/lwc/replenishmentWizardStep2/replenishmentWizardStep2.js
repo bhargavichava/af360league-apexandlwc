@@ -11,7 +11,7 @@ const SEARCH_DELAY = 350;
 export default class ReplenishmentWizardStep2 extends LightningElement {
   // TODO FOR THE CHALLENGE (Task 1):
   // Replace undefined with fromContext(createReplenishmentState).
-  replenishmentState = undefined;
+  replenishmentState = fromContext(createReplenishmentState);
   products = [];
   searchTerm = '';
   currentStartIndex = 0;
