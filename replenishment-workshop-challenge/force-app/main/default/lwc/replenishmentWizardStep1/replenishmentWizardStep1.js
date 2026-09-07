@@ -9,7 +9,7 @@ export default class ReplenishmentWizardStep1 extends LightningElement {
   _recordId;
   // TODO FOR THE CHALLENGE (Task 1):
   // Replace undefined with fromContext(createReplenishmentState).
-  replenishmentState = undefined;
+  replenishmentState = fromContext(createReplenishmentState);
   isLoading = true;
   errorMessage;
   requestSequence = 0;
